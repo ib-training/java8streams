@@ -7,13 +7,12 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertNotNull;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ExercisesTest {
@@ -27,8 +26,10 @@ public class ExercisesTest {
     @Test
     public void shouldReturnSquareRoot() {
         List<Integer> numbers = Arrays.asList(1, 4, 16, 256);
-        List<Integer> squares = Exercises.returnSquareRoot(numbers);
-        assertThat(squares, is(equalTo(Arrays.asList(1, 2, 4, 16))));
+        List<Double> squares = Exercises.squareRoots(numbers);
+        assertArrayEquals(
+                squares.stream().mapToDouble(Double::doubleValue).toArray(),
+                new double[] { 1, 2, 4, 16 }, 1E-5);
     }
 
     @Test
@@ -40,15 +41,15 @@ public class ExercisesTest {
 
     @Test
     public void shouldReturnFirstTwo() {
-        List<User> users = User.getUsersWithAge(18, 20, 21, 22, 23);
-        users = Exercises.getLimitedUserList(users, 2);
+        List<User> users = User.getUsersWithAge(16, 17, 18, 20, 21, 22, 23);
+        users = Exercises.getFirstNUsers(users, 2);
         assertThat(users, is(equalTo(Arrays.asList(users.get(0), users.get(1)))));
     }
 
     @Test
-    public void shouldReturnNumberOfUsersOlderThen25() {
-        List<User> users = User.getUsersWithAge(18, 20, 21, 22, 23, 24, 25, 26);
-        Integer count = Exercises.countUsersOlderThen25(users);
+    public void shouldReturnNumberOfUsersOlderThen18() {
+        List<User> users = User.getUsersWithAge(16, 20, 16, 17, 18);
+        Integer count = Exercises.countUsersOlderThen18(users);
         assertTrue(count == 1);
     }
 
@@ -62,29 +63,22 @@ public class ExercisesTest {
     @Test
     public void shouldSumIntegersInCollection() {
         List<Integer> integers = asList(1, 2, 3, 4, 5);
-        Integer result = Exercises.sum(integers);
+        Integer result = Exercises.sumInts(integers);
         assertThat(result, equalTo(1 + 2 + 3 + 4 + 5));
     }
 
     @Test
-    public void shouldSkipInCollection() {
-        List<Integer> integers = asList(1, 2, 3, 4, 5);
-        List<Integer> result = Exercises.skip(integers, 2);
-        assertThat(result, equalTo(Arrays.asList(3, 4, 5)));
-    }
-
-    @Test
     public void shouldReturnFirstNames() {
-        List<String> names = asList("Homer Simpson", "Marge Simpson", "Bart Simpson", "Kent Brockman");
+        List<String> names = asList("Barbara Cooper", "John Smith", "Jack Mueller");
         List<String> result = Exercises.getFirstNames(names);
-        assertThat(result, equalTo(Arrays.asList("Homer", "Marge", "Bart", "Kent")));
+        assertThat(result, equalTo(Arrays.asList("Barbara", "John", "Jack")));
     }
 
     @Test
     public void shouldReturnDistinctLetters() {
-        List<String> names = asList("Homer Simpson", "Marge Simpson", "Bart Simpson", "Kent Brockman");
+        List<String> names = asList("Barbara", "John", "Jack");
         List<String> result = Exercises.getDistinctLetters(names);
-        assertThat(result, equalTo(Arrays.asList("H", "o", "m", "e", "r", " " , "S", "i", "p", "s", "n", "M", "a", "g", "B", "t", "K", "c", "k")));
+        assertThat(result, equalTo(Arrays.asList("B", "a", "r", "b", "J", "o", "h", "n", "c", "k")));
     }
 
     @Test
@@ -93,7 +87,7 @@ public class ExercisesTest {
                 new User("Homer"),
                 new User("Maggie"),
                 new User("Bart"));
-        String result = Exercises.separateNamesByComma(input);
+        String result = Exercises.joinNamesWithComma(input);
         assertThat(result, equalTo("Homer, Maggie, Bart"));
     }
 
@@ -158,18 +152,6 @@ public class ExercisesTest {
     }
 
     @Test
-    public void shouldMatchAge(){
-        List<User> users = User.getUsersWithAge(10, 20, 30);
-        assertTrue(Exercises.anyMatch(users, 10));
-    }
-
-    @Test
-    public void shouldNoneMatchAge(){
-        List<User> users = User.getUsersWithAge(10, 20, 30);
-        assertTrue(Exercises.noneMatch(users, 40));
-    }
-
-    @Test
     public void shouldFindAnyUser(){
         User homer = new User("Homer", true);
         User bart = new User("Bart", true);
@@ -189,17 +171,6 @@ public class ExercisesTest {
         List<User> users = asList(homer, bart, maggie, lisa);
         List<User> sorted = Exercises.sortByAge(users);
         assertThat(sorted, contains(maggie, lisa, bart, homer));
-    }
-
-    @Test
-    public void shouldFindOldest(){
-        User homer = new User("Homer", 50);
-        User bart = new User("Bart", 12);
-        User maggie = new User("Maggie",2);
-        User lisa = new User("Lisa", 8);
-        List<User> users = asList(homer, bart, maggie, lisa);
-        User oldest = Exercises.findOldest(users);
-        assertThat(oldest, equalTo(homer));
     }
 
     @Test
@@ -236,20 +207,8 @@ public class ExercisesTest {
     }
 
     @Test
-    public void shouldBeEmptyStream(){
-        Stream<Integer> numberStream =null; //create empty stream
-        assertNotNull(numberStream);
-    }
-
-    @Test
-    public void shouldGenerateFirstPrimeNumbers(){
-        List<Integer> primeNumbers = Exercises.generateFirst10PrimeNumbers();
-        assertThat(primeNumbers, contains(2,3,5,7,11,13, 17,19, 23, 29));
-    }
-
-    @Test
     public void shouldGenerate10RandomNumbers(){
-        List<Integer> randomNumbers = Exercises.generate10RandomNumbers();
+        List<Double> randomNumbers = Exercises.generate10RandomNumbers();
         assertTrue(randomNumbers.size()==10);
     }
 }
