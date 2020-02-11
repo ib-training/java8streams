@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Exercises {
-    public static List<Integer> returnSquareRoot(List<Integer> numbers){
+    public static List<Double> squareRoots(List<Integer> numbers){
         throw new RuntimeException("not implemented");
     }
 
@@ -20,11 +20,11 @@ public class Exercises {
         throw new RuntimeException("not implemented");
     }
 
-    public static List<User> getLimitedUserList(List<User> users, int limit){
+    public static List<User> getFirstNUsers(List<User> users, int n){
         throw new RuntimeException("not implemented");
     }
 
-    public static Integer countUsersOlderThen25(List<User> users){
+    public static Integer countUsersOlderThen18(List<User> users){
         throw new RuntimeException("not implemented");
     }
 
@@ -32,11 +32,7 @@ public class Exercises {
         throw new RuntimeException("not implemented");
     }
 
-    public static Integer sum(List<Integer> integers){
-        throw new RuntimeException("not implemented");
-    }
-
-    public static List<Integer> skip(List<Integer> integers, Integer toSkip){
+    public static Integer sumInts(List<Integer> integers){
         throw new RuntimeException("not implemented");
     }
 
@@ -49,7 +45,7 @@ public class Exercises {
     }
 
 
-    public static String separateNamesByComma(List<User> users){
+    public static String joinNamesWithComma(List<User> users){
         throw new RuntimeException("not implemented");
     }
 
@@ -81,14 +77,6 @@ public class Exercises {
         throw new RuntimeException("not implemented");
     }
 
-    public static boolean anyMatch(List<User> users, int age){
-        throw new RuntimeException("not implemented");
-    }
-
-    public static boolean noneMatch(List<User> users, int age){
-        throw new RuntimeException("not implemented");
-    }
-
     public static Optional<User> findAny(List<User> users, String name){
         throw new RuntimeException("not implemented");
     }
@@ -105,15 +93,7 @@ public class Exercises {
         throw new RuntimeException("not implemented");
     }
 
-    public static boolean isPrime(int number) {
-        return IntStream.rangeClosed(2, number/2).noneMatch(i -> number%i == 0);
-    }
-
-    public static List<Integer> generate10RandomNumbers(){
-        throw new RuntimeException("not implemented");
-    }
-
-    public static User findOldest(List<User> users){
+    public static List<Double> generate10RandomNumbers(){
         throw new RuntimeException("not implemented");
     }
 
