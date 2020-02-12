@@ -152,17 +152,6 @@ public class ExercisesTest {
     }
 
     @Test
-    public void shouldFindAnyUser(){
-        User homer = new User("Homer", true);
-        User bart = new User("Bart", true);
-        User maggie = new User("Maggie",false);
-        User lisa = new User("Lisa", true);
-        List<User> users = asList(homer, bart, maggie, lisa);
-        Optional<User> user = Exercises.findAny(users, "Homer");
-        assertTrue(user.isPresent());
-    }
-
-    @Test
     public void shouldSortByAge(){
         User homer = new User("Homer", 50);
         User bart = new User("Bart", 12);
